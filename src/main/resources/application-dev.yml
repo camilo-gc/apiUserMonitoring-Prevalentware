@@ -6,6 +6,3 @@ spring:
     url: jdbc:postgresql://${URL_DB_ENV}:${DATABASE_PORT}/${NAME_DB_ENV}
     username: ${USERNAME_DB_ENV}
     password: ${PASSWORD_DB_ENV}
-  jpa:
-    hibernate:
-      ddl-auto: update
