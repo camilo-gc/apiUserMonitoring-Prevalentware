@@ -8,4 +8,7 @@ import java.util.List;
 public interface IUserServicePort {
 
     List<User> getAllUsers(Pageable pageable);
+
+    User getUserByEmail(String email) ;
+
 }

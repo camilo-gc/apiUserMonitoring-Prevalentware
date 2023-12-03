@@ -19,4 +19,8 @@ public class UserUseCase implements IUserServicePort {
         return userPersistencePort.findAllUsers(pageable);
     }
 
+    public User getUserByEmail(String email) {
+        return userPersistencePort.findUserByEmail(email);
+    }
+
 }

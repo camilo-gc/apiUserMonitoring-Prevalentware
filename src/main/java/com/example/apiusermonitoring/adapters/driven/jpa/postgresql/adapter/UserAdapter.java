@@ -4,6 +4,7 @@ import com.example.apiusermonitoring.adapters.driven.jpa.postgresql.entity.UserE
 import com.example.apiusermonitoring.adapters.driven.jpa.postgresql.mapper.IUserEntityMapper;
 import com.example.apiusermonitoring.adapters.driven.jpa.postgresql.repository.IUserRepository;
 import com.example.apiusermonitoring.adapters.driven.jpa.postgresql.exception.NoDataFoundException;
+import com.example.apiusermonitoring.adapters.driven.jpa.postgresql.exception.UserNotFoundException;
 import com.example.apiusermonitoring.domain.model.User;
 import com.example.apiusermonitoring.domain.spi.IUserPersistencePort;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +25,15 @@ public class UserAdapter implements IUserPersistencePort {
             throw new NoDataFoundException();
         }
         return userEntityMapper.toUserList(userEntityList);
+    }
+
+    @Override
+    public User findUserByEmail(String email) {
+        UserEntity userEntity = userRepository.findByEmail(email);
+        if(userEntity == null){
+            throw new UserNotFoundException();
+        }
+        return userEntityMapper.toUser(userEntity);
     }
 
 }

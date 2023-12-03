@@ -9,4 +9,6 @@ public interface IUserPersistencePort {
 
     List<User> findAllUsers(Pageable pageable);
 
+    User findUserByEmail(String email);
+
 }
