@@ -10,31 +10,48 @@ import java.util.Date;
 import java.util.Set;
 
 @Entity
-@Table(name = "User")
+@Table(name = "\"User\"", schema = "public")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
 public class UserEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private String id;
     private String email;
     private String name;
     private String image;
     private String position;
+    @Column(name = "\"emailVerified\"")
     private Date emailVerified;
+    @Column(name = "\"termsAndConditionsAccepted\"")
     private Date termsAndConditionsAccepted;
+    @Column(name = "\"createdAt\"")
     private Date createdAt;
+    @Column(name = "\"updatedAt\"")
     private Date updatedAt;
     @ManyToOne
-    @JoinColumn(name = "roleId")
+    @JoinColumn(name = "\"roleId\"")
     private RoleEntity roleEntity;
-    @ManyToMany
-    @JoinTable(
-            name = "_CountryToUser",
-            joinColumns = @JoinColumn(name = "A"), // Columna que referencia a User
-            inverseJoinColumns = @JoinColumn(name = "B") // Columna que referencia a Country
-    )
-    private Set<CountryEntity> countriesEntity;// = new HashSet<>()
+    @ManyToMany(mappedBy = "usersEntity")
+    private Set<CountryEntity> countriesEntity;
+
+    @Override
+    public String toString() {
+        return "UserEntity{" +
+                "id='" + id + '\'' +
+                ", email='" + email + '\'' +
+                ", name='" + name + '\'' +
+                ", image='" + image + '\'' +
+                ", position='" + position + '\'' +
+                ", emailVerified=" + emailVerified +
+                ", termsAndConditionsAccepted=" + termsAndConditionsAccepted +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                ", roleEntity=" + roleEntity +
+                ", countriesEntity=" + countriesEntity +
+                '}';
+    }
+
 }

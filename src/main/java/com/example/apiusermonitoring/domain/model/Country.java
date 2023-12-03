@@ -7,15 +7,15 @@ public class Country {
 
     private String id;
     private String name;
-    private Date createAt;
-    private Date updateAt;
+    private Date createdAt;
+    private Date updatedAt;
     private Set<User> users;
 
-    public Country(String id, String name, Date createAt, Date updateAt, Set<User> users) {
+    public Country(String id, String name, Date createdAt, Date updatedAt, Set<User> users) {
         this.id = id;
         this.name = name;
-        this.createAt = createAt;
-        this.updateAt = updateAt;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
         this.users = users;
     }
 
@@ -35,20 +35,20 @@ public class Country {
         this.name = name;
     }
 
-    public Date getCreateAt() {
-        return createAt;
+    public Date getCreatedAt() {
+        return createdAt;
     }
 
-    public void setCreateAt(Date createAt) {
-        this.createAt = createAt;
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
     }
 
-    public Date getUpdateAt() {
-        return updateAt;
+    public Date getUpdatedAt() {
+        return updatedAt;
     }
 
-    public void setUpdateAt(Date updateAt) {
-        this.updateAt = updateAt;
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
     }
 
     public Set<User> getUsers() {
