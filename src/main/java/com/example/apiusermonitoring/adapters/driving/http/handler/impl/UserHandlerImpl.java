@@ -1,6 +1,6 @@
 package com.example.apiusermonitoring.adapters.driving.http.handler.impl;
 
-import com.example.apiusermonitoring.adapters.driving.http.dto.UserResponseDto;
+import com.example.apiusermonitoring.adapters.driving.http.dto.response.UserResponseDto;
 import com.example.apiusermonitoring.adapters.driving.http.handler.IUserHandler;
 import com.example.apiusermonitoring.adapters.driving.http.mapper.IUserResponseMapper;
 import com.example.apiusermonitoring.domain.api.IUserServicePort;
@@ -23,6 +23,11 @@ public class UserHandlerImpl implements IUserHandler {
     public List<UserResponseDto> getUsers(int page, int size) {
         Pageable pageable = PageRequest.of( page-1, size, Sort.by(Sort.Direction.ASC, "name"));
         return userResponseMapper.toResponseList( userServicePort.getAllUsers(pageable) );
+    }
+
+    @Override
+    public UserResponseDto getUserByEmail(String email) {
+        return userResponseMapper.toResponse(userServicePort.getUserByEmail(email));
     }
 
 }

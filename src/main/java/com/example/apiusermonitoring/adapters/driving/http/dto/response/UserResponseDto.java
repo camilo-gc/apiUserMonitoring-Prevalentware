@@ -1,4 +1,4 @@
-package com.example.apiusermonitoring.adapters.driving.http.dto;
+package com.example.apiusermonitoring.adapters.driving.http.dto.response;
 
 import com.example.apiusermonitoring.domain.model.Country;
 import com.example.apiusermonitoring.domain.model.Role;

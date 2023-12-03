@@ -1,9 +1,8 @@
 package com.example.apiusermonitoring.adapters.driving.http.mapper;
 
-import com.example.apiusermonitoring.adapters.driving.http.dto.UserResponseDto;
+import com.example.apiusermonitoring.adapters.driving.http.dto.response.UserResponseDto;
 import com.example.apiusermonitoring.domain.model.User;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
 
 import java.util.List;
