@@ -9,19 +9,22 @@ import lombok.Setter;
 import java.util.Date;
 
 @Entity
-@Table(name = "Session")
+@Table(name = "\"Session\"", schema = "public")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
 public class SessionEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private String id;
+    @Column(name = "\"sessionToken\"")
     private String sessionToken;
+    @Column(name = "\"createdAt\"")
     private Date createdAt;
+    @Column(name = "\"expiresAt\"")
     private Date expiresAt;
     @ManyToOne
-    @JoinColumn(name = "userId")
+    @JoinColumn(name = "\"userId\"")
     private UserEntity userEntity;
 }

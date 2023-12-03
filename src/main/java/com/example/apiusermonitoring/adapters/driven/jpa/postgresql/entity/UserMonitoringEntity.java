@@ -9,19 +9,20 @@ import lombok.Setter;
 import java.util.Date;
 
 @Entity
-@Table(name = "UserMonitoring")
+@Table(name = "\"UserMonitoring\"", schema = "public")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
 public class UserMonitoringEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private String id;
     private Integer usage;
     private String description;
+    @Column(name = "\"createdAt\"")
     private Date createdAt;
     @ManyToOne
-    @JoinColumn(name = "userId")
+    @JoinColumn(name = "\"userId\"")
     private UserEntity userEntity;
 }

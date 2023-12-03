@@ -13,12 +13,12 @@ public class User {
     private Date emailVerified;
     private Date termsAndConditionsAccepted;
     private Date createdAt;
-    private Date updateAt;
+    private Date updatedAt;
     private Role role;
     private Set<Country> countries;
 
 
-    public User(String id, String email, String name, String image, String position, Date emailVerified, Date termsAndConditionsAccepted, Date createdAt, Date updateAt, Role role, Set<Country> countries) {
+    public User(String id, String email, String name, String image, String position, Date emailVerified, Date termsAndConditionsAccepted, Date createdAt, Date updatedAt, Role role, Set<Country> countries) {
         this.id = id;
         this.email = email;
         this.name = name;
@@ -27,7 +27,7 @@ public class User {
         this.emailVerified = emailVerified;
         this.termsAndConditionsAccepted = termsAndConditionsAccepted;
         this.createdAt = createdAt;
-        this.updateAt = updateAt;
+        this.updatedAt = updatedAt;
         this.role = role;
         this.countries = countries;
     }
@@ -96,12 +96,12 @@ public class User {
         this.createdAt = createdAt;
     }
 
-    public Date getUpdateAt() {
-        return updateAt;
+    public Date getUpdatedAt() {
+        return updatedAt;
     }
 
     public void setUpdateAt(Date updateAt) {
-        this.updateAt = updateAt;
+        this.updatedAt = updatedAt;
     }
 
     public Role getRole() {
