@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "\"UserMonitoring\"", schema = "public")
@@ -21,7 +21,7 @@ public class UserMonitoringEntity {
     private Integer usage;
     private String description;
     @Column(name = "\"createdAt\"")
-    private Date createdAt;
+    private LocalDate createdAt;
     @ManyToOne
     @JoinColumn(name = "\"userId\"")
     private UserEntity userEntity;

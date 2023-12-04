@@ -1,6 +1,7 @@
 package com.example.apiusermonitoring.domain.usecase;
 
 import com.example.apiusermonitoring.adapters.driven.jpa.postgresql.exception.NoDataFoundException;
+import com.example.apiusermonitoring.databuilder.CountryDataBuilder;
 import com.example.apiusermonitoring.domain.api.ICountryServicePort;
 import com.example.apiusermonitoring.domain.model.Country;
 import com.example.apiusermonitoring.domain.spi.ICountryPersistencePort;
@@ -32,7 +33,7 @@ class CountryUseCaseTest {
     @Test
     void testGetAllCountries() {
 
-        List<Country> countryList = CountryData.buildList(5);
+        List<Country> countryList = CountryDataBuilder.buildList(5);
 
         when(countryPersistencePort.findAllCountries(any(Pageable.class))).thenReturn(countryList);
         assertEquals(countryList, countryServicePort.getAllCountries(Pageable.unpaged()));

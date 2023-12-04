@@ -1,4 +1,4 @@
-package com.example.apiusermonitoring.domain.usecase;
+package com.example.apiusermonitoring.databuilder;
 
 import com.example.apiusermonitoring.domain.model.Country;
 
@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class CountryData {
+public class CountryDataBuilder {
 
     public static Country build(String id){
         return new Country(id, "name", new Date(), new Date(), null);
