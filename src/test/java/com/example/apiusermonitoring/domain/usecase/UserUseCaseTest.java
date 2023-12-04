@@ -2,6 +2,7 @@ package com.example.apiusermonitoring.domain.usecase;
 
 import com.example.apiusermonitoring.adapters.driven.jpa.postgresql.exception.NoDataFoundException;
 import com.example.apiusermonitoring.adapters.driven.jpa.postgresql.exception.UserNotFoundException;
+import com.example.apiusermonitoring.databuilder.UserDataBuilder;
 import com.example.apiusermonitoring.domain.api.IUserServicePort;
 import com.example.apiusermonitoring.domain.model.User;
 import com.example.apiusermonitoring.domain.spi.IUserPersistencePort;
@@ -33,7 +34,7 @@ class UserUseCaseTest {
     @Test
     void testGetAllUsers() {
 
-        List<User> userList = UserData.buildList(5);
+        List<User> userList = UserDataBuilder.buildList(5);
 
         when(userPersistencePort.findAllUsers(any(Pageable.class))).thenReturn(userList);
         assertEquals(userList, userServicePort.getAllUsers(Pageable.unpaged()));
@@ -54,7 +55,7 @@ class UserUseCaseTest {
     @Test
     void testGetUserByEmail() {
 
-        User expectedUserUser = UserData.build("1");
+        User expectedUserUser = UserDataBuilder.build("1");
         String email = expectedUserUser.getEmail();
         
         when(userPersistencePort.findUserByEmail(email)).thenReturn(expectedUserUser);
