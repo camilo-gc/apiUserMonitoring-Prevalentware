@@ -1,6 +1,7 @@
 package com.example.apiusermonitoring.adapters.driving.http.handler.impl;
 
 import com.example.apiusermonitoring.adapters.driving.http.dto.request.TimeRangeRequestDto;
+import com.example.apiusermonitoring.adapters.driving.http.dto.request.UserMonitoringFieldsRequestDto;
 import com.example.apiusermonitoring.adapters.driving.http.dto.response.UserResponseDto;
 import com.example.apiusermonitoring.adapters.driving.http.handler.IUserHandler;
 import com.example.apiusermonitoring.adapters.driving.http.mapper.IUserResponseMapper;
@@ -41,6 +42,21 @@ public class UserHandlerImpl implements IUserHandler {
                 )
         );
 
+    }
+
+    @Override
+    public List<UserResponseDto> getUsersByDescriptionAndCountryAndTimeRange(UserMonitoringFieldsRequestDto userMonitoringFieldsRequestDto, int page, int size) {
+        Pageable pageable = PageRequest.of( page-1, size, Sort.by(Sort.Direction.ASC, "description"));
+
+        return userResponseMapper.toResponseList(
+                userServicePort.getUsersByDescriptionAndCountryAndTimeRange(
+                        userMonitoringFieldsRequestDto.getDescription(),
+                        userMonitoringFieldsRequestDto.getCountryId(),
+                        userMonitoringFieldsRequestDto.getStartDate(),
+                        userMonitoringFieldsRequestDto.getEndDate(),
+                        pageable
+                )
+        );
     }
 
 }

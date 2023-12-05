@@ -16,7 +16,6 @@ public class UserMonitoringUseCase implements IUserMonitoringServicePort {
         this.userMonitoringPersistencePort = userMonitoringPersistencePort;
     }
 
-    @Override
     public List<UserMonitoring> getUserMonitoringByEmailAndTimeRange(String userEmail, String startDate, String endDate, Pageable pageable) {
         return userMonitoringPersistencePort.findUserMonitoringByEmailAndTimeRange(
                 userEmail,

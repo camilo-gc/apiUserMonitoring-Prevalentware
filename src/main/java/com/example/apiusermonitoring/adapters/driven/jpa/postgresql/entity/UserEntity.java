@@ -37,21 +37,4 @@ public class UserEntity {
     @ManyToMany(mappedBy = "usersEntity")
     private Set<CountryEntity> countriesEntity;
 
-    @Override
-    public String toString() {
-        return "UserEntity{" +
-                "id='" + id + '\'' +
-                ", email='" + email + '\'' +
-                ", name='" + name + '\'' +
-                ", image='" + image + '\'' +
-                ", position='" + position + '\'' +
-                ", emailVerified=" + emailVerified +
-                ", termsAndConditionsAccepted=" + termsAndConditionsAccepted +
-                ", createdAt=" + createdAt +
-                ", updatedAt=" + updatedAt +
-                ", roleEntity=" + roleEntity +
-                ", countriesEntity=" + countriesEntity +
-                '}';
-    }
-
 }

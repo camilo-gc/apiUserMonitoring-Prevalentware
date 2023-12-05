@@ -1,6 +1,7 @@
 package com.example.apiusermonitoring.adapters.driving.http.controller;
 
 import com.example.apiusermonitoring.adapters.driving.http.dto.request.TimeRangeRequestDto;
+import com.example.apiusermonitoring.adapters.driving.http.dto.request.UserMonitoringFieldsRequestDto;
 import com.example.apiusermonitoring.adapters.driving.http.dto.request.UserRequestDto;
 import com.example.apiusermonitoring.adapters.driving.http.dto.response.UserResponseDto;
 import com.example.apiusermonitoring.adapters.driving.http.handler.IUserHandler;
@@ -29,11 +30,18 @@ public class UserRestController {
         return ResponseEntity.ok(userHandler.getUserByEmail(userRequestDto.getEmail()));
     }
 
-    @GetMapping("/max-records")
+    @GetMapping("/max-monitoring-records")
     public ResponseEntity<List<UserResponseDto>> getTop3UsersOfRecords(@Valid @RequestBody TimeRangeRequestDto timeRangeRequestDto,
                                                                        @RequestParam(defaultValue = "1") Integer page,
                                                                        @RequestParam(defaultValue = "10") Integer size)  {
         return ResponseEntity.ok(userHandler.getTop3UsersOfRecords(timeRangeRequestDto, page, size));
+    }
+
+    @GetMapping("/description-and-country")
+    public ResponseEntity<List<UserResponseDto>> getUsersByDescriptionAndCountryAndTimeRange(@Valid @RequestBody UserMonitoringFieldsRequestDto userMonitoringFieldsRequestDto,
+                                                                                                       @RequestParam(defaultValue = "1") Integer page,
+                                                                                                       @RequestParam(defaultValue = "10") Integer size)  {
+        return ResponseEntity.ok(userHandler.getUsersByDescriptionAndCountryAndTimeRange(userMonitoringFieldsRequestDto, page, size));
     }
 
 }

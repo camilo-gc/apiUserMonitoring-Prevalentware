@@ -24,4 +24,8 @@ public interface IUserMonitoringRepository extends JpaRepository<UserMonitoringE
             Pageable pageable
     );
 
+    List<UserMonitoringEntity> findByDescriptionAndUserEntity_CountriesEntity_IdAndCreatedAtBetween(
+            String description, String countryId, LocalDate startDate, LocalDate endDate, Pageable pageable
+    );
+
 }

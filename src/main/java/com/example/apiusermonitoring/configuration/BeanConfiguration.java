@@ -30,13 +30,12 @@ public class BeanConfiguration {
     private final IUserEntityMapper userEntityMapper;
     private final ICountryRepository countryRepository;
     private final ICountryEntityMapper countryEntityMapper;
-
     private final IUserMonitoringRepository userMonitoringRepository;
     private final IUserMonitoringEntityMapper userMonitoringEntityMapper;
 
     @Bean
     public IUserServicePort userServicePort() {
-        return new UserUseCase(userPersistencePort());
+        return new UserUseCase(userPersistencePort(), userMonitoringPersistencePort());
     }
 
     @Bean
