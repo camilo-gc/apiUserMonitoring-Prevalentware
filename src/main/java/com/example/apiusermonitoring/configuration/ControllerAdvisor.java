@@ -3,6 +3,7 @@ package com.example.apiusermonitoring.configuration;
 import com.example.apiusermonitoring.adapters.driven.jpa.postgresql.exception.NoDataFoundException;
 import com.example.apiusermonitoring.adapters.driven.jpa.postgresql.exception.UserNotFoundException;
 import com.example.apiusermonitoring.domain.exception.InvalidDateFormatException;
+import com.example.apiusermonitoring.domain.exception.InvalidDateRangeException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -51,6 +52,12 @@ public class ControllerAdvisor {
     public ResponseEntity<Map<String, String>> handleInvalidDateFormatException() {
         return ResponseEntity.status(HttpStatus.CONFLICT)
                 .body(Collections.singletonMap(RESPONSE_ERROR_MESSAGE_KEY, INVALID_DATE_FORMAT_MESSAGE));
+    }
+
+    @ExceptionHandler(InvalidDateRangeException.class)
+    public ResponseEntity<Map<String, String>> handleInvalidDateRangeException() {
+        return ResponseEntity.status(HttpStatus.CONFLICT)
+                .body(Collections.singletonMap(RESPONSE_ERROR_MESSAGE_KEY, INVALID_DATE_RANGE_MESSAGE));
     }
 
 }

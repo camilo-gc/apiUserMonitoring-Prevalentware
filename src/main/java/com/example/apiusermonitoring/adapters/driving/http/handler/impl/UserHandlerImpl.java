@@ -1,5 +1,6 @@
 package com.example.apiusermonitoring.adapters.driving.http.handler.impl;
 
+import com.example.apiusermonitoring.adapters.driving.http.dto.request.TimeRangeRequestDto;
 import com.example.apiusermonitoring.adapters.driving.http.dto.response.UserResponseDto;
 import com.example.apiusermonitoring.adapters.driving.http.handler.IUserHandler;
 import com.example.apiusermonitoring.adapters.driving.http.mapper.IUserResponseMapper;
@@ -28,6 +29,18 @@ public class UserHandlerImpl implements IUserHandler {
     @Override
     public UserResponseDto getUserByEmail(String email) {
         return userResponseMapper.toResponse(userServicePort.getUserByEmail(email));
+    }
+
+    @Override
+    public List<UserResponseDto> getTop3UsersOfRecords(TimeRangeRequestDto timeRangeRequestDto, int page, int size) {
+
+        return userResponseMapper.toResponseList(
+                userServicePort.getTop3UsersWithMaxRecordsAndTimeRange(
+                        timeRangeRequestDto.getStartDate(),
+                        timeRangeRequestDto.getEndDate()
+                )
+        );
+
     }
 
 }

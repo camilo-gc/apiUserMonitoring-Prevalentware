@@ -10,6 +10,7 @@ import com.example.apiusermonitoring.domain.spi.IUserPersistencePort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 
+import java.time.LocalDate;
 import java.util.*;
 
 @RequiredArgsConstructor
@@ -34,6 +35,16 @@ public class UserAdapter implements IUserPersistencePort {
             throw new UserNotFoundException();
         }
         return userEntityMapper.toUser(userEntity);
+    }
+
+    @Override
+    public List<User> findTop3UsersWithMaxRecordsAndTimeRange(LocalDate startDate, LocalDate endDate){
+
+        List<UserEntity> userEntityList = userRepository.findTop3UsersMaxRecordsAndCreatedAtBetween(startDate, endDate);
+        if (userEntityList.isEmpty()) {
+            throw new NoDataFoundException();
+        }
+        return userEntityMapper.toUserList(userEntityList);
     }
 
 }

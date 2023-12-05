@@ -11,4 +11,6 @@ public interface IUserServicePort {
 
     User getUserByEmail(String email) ;
 
+    List<User> getTop3UsersWithMaxRecordsAndTimeRange(String startDate, String endDate);
+
 }
