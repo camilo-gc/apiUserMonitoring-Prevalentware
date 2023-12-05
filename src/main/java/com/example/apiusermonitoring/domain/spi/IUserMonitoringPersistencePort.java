@@ -10,4 +10,6 @@ public interface IUserMonitoringPersistencePort {
 
     List<UserMonitoring> findUserMonitoringByEmailAndTimeRange(String userEmail, LocalDate startDate, LocalDate endDate, Pageable pageable);
 
+    List<UserMonitoring> findUserByDescriptionAndCountryAndTimeRange(String description, String countryId, LocalDate startDate, LocalDate endDate, Pageable pageable);
+
 }

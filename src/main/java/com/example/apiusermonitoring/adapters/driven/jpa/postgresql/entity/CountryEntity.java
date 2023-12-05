@@ -32,15 +32,4 @@ public class CountryEntity {
     )
     private Set<UserEntity> usersEntity;
 
-    @Override
-    public String toString() {
-        return "CountryEntity{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", createdAt=" + createdAt +
-                ", updatedAt=" + updatedAt +
-                ", usersEntity=" + usersEntity +
-                '}';
-    }
-
 }

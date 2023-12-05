@@ -28,4 +28,17 @@ public class UserMonitoringAdapter implements IUserMonitoringPersistencePort {
         return userMonitoringEntityMapper.toUserMonitoringList(userMonitoringEntityList);
     }
 
+    @Override
+    public List<UserMonitoring> findUserByDescriptionAndCountryAndTimeRange(String description, String countryId,
+                                                                            LocalDate startDate, LocalDate endDate, Pageable pageable) {
+
+        List<UserMonitoringEntity> userMonitoringEntityList = userMonitoringRepository
+                .findByDescriptionAndUserEntity_CountriesEntity_IdAndCreatedAtBetween(description, countryId, startDate, endDate, pageable);
+
+        if (userMonitoringEntityList.isEmpty()) {
+            throw new NoDataFoundException();
+        }
+        return userMonitoringEntityMapper.toUserMonitoringList(userMonitoringEntityList);
+    }
+
 }

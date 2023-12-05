@@ -120,4 +120,42 @@ public class User {
         this.countries = countries;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User user)) return false;
+
+        if (!getId().equals(user.getId())) return false;
+        if (!getEmail().equals(user.getEmail())) return false;
+        if (!getName().equals(user.getName())) return false;
+        if (getImage() != null ? !getImage().equals(user.getImage()) : user.getImage() != null) return false;
+        if (getPosition() != null ? !getPosition().equals(user.getPosition()) : user.getPosition() != null)
+            return false;
+        if (getEmailVerified() != null ? !getEmailVerified().equals(user.getEmailVerified()) : user.getEmailVerified() != null)
+            return false;
+        if (getTermsAndConditionsAccepted() != null ? !getTermsAndConditionsAccepted().equals(user.getTermsAndConditionsAccepted()) : user.getTermsAndConditionsAccepted() != null)
+            return false;
+        if (!getCreatedAt().equals(user.getCreatedAt())) return false;
+        if (getUpdatedAt() != null ? !getUpdatedAt().equals(user.getUpdatedAt()) : user.getUpdatedAt() != null)
+            return false;
+        if (getRole() != null ? !getRole().equals(user.getRole()) : user.getRole() != null) return false;
+        return getCountries() != null ? getCountries().equals(user.getCountries()) : user.getCountries() == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getId().hashCode();
+        result = 31 * result + getEmail().hashCode();
+        result = 31 * result + getName().hashCode();
+        result = 31 * result + (getImage() != null ? getImage().hashCode() : 0);
+        result = 31 * result + (getPosition() != null ? getPosition().hashCode() : 0);
+        result = 31 * result + (getEmailVerified() != null ? getEmailVerified().hashCode() : 0);
+        result = 31 * result + (getTermsAndConditionsAccepted() != null ? getTermsAndConditionsAccepted().hashCode() : 0);
+        result = 31 * result + getCreatedAt().hashCode();
+        result = 31 * result + (getUpdatedAt() != null ? getUpdatedAt().hashCode() : 0);
+        result = 31 * result + (getRole() != null ? getRole().hashCode() : 0);
+        result = 31 * result + (getCountries() != null ? getCountries().hashCode() : 0);
+        return result;
+    }
+
 }

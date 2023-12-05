@@ -13,4 +13,6 @@ public interface IUserServicePort {
 
     List<User> getTop3UsersWithMaxRecordsAndTimeRange(String startDate, String endDate);
 
+    List<User> getUsersByDescriptionAndCountryAndTimeRange(String description, String countryId, String startDate, String endDate, Pageable pageable);
+
 }
