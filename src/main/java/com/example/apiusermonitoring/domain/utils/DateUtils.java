@@ -1,6 +1,7 @@
 package com.example.apiusermonitoring.domain.utils;
 
 import com.example.apiusermonitoring.domain.exception.InvalidDateFormatException;
+import com.example.apiusermonitoring.domain.exception.InvalidDateRangeException;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -23,6 +24,14 @@ public class DateUtils {
         }
 
         return outputDate;
+    }
+
+    public static void validateDateRange(String startDate, String endDate) {
+        LocalDate startLocalDate =  convertToDate(startDate);
+        LocalDate endLocalDate = convertToDate(endDate);
+        if(startLocalDate.isAfter(endLocalDate)){
+            throw new InvalidDateRangeException();
+        }
     }
 
 }

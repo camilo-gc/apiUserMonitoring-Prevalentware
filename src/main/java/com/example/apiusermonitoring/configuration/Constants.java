@@ -11,8 +11,9 @@ public class Constants {
 
     public static final String RESPONSE_ERROR_MESSAGE_KEY = "error";
     public static final String NO_DATA_FOUND_MESSAGE = "No data found for the requested petition";
-    public static final String NO_EMPTY_MESSAGE = "must not be empty";
+    public static final String NO_EMPTY_MESSAGE = "Must not be empty";
     public static final String USER_NOT_FOUND_MESSAGE = "No user has been found with the provided email address";
     public static final String INVALID_DATE_FORMAT_MESSAGE ="Invalid date format, must have the following format 'yyyy-MM-dd'";
+    public static final String INVALID_DATE_RANGE_MESSAGE ="The start date cannot be greater than the end date";
 
 }

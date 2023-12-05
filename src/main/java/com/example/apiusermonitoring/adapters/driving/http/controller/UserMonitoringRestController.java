@@ -11,13 +11,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("api-test")
+@RequestMapping("api-test/user-monitoring")
 @RequiredArgsConstructor
 public class UserMonitoringRestController {
 
     private final IUserMonitoringHandler userMonitoringHandler;
 
-    @GetMapping("/user-monitoring")
+    @GetMapping("")
     public ResponseEntity<List<UserMonitoringResponseDto>> getUserMonitoring(@Valid @RequestBody UserMonitoringRequestDto userMonitoringRequestDto,
                                                                        @RequestParam(defaultValue = "1") Integer page,
                                                                        @RequestParam(defaultValue = "10") Integer size)  {

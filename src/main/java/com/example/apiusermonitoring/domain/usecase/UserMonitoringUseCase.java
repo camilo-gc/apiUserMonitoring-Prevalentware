@@ -6,7 +6,6 @@ import com.example.apiusermonitoring.domain.spi.IUserMonitoringPersistencePort;
 import com.example.apiusermonitoring.domain.utils.DateUtils;
 import org.springframework.data.domain.Pageable;
 
-import java.util.Date;
 import java.util.List;
 
 public class UserMonitoringUseCase implements IUserMonitoringServicePort {
