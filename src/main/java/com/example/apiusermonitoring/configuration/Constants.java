@@ -15,5 +15,9 @@ public class Constants {
     public static final String USER_NOT_FOUND_MESSAGE = "No user has been found with the provided email address";
     public static final String INVALID_DATE_FORMAT_MESSAGE ="Invalid date format, must have the following format 'yyyy-MM-dd'";
     public static final String INVALID_DATE_RANGE_MESSAGE ="The start date cannot be greater than the end date";
+    public static final String INVALID_TOKEN_MESSAGE ="A problem with the token has occurred";
+    public static final String ADMIN_ROLE ="Admin";
+    public static final String MANAGER_ROLE ="Manager";
+    public static final String USER_ROLE ="User";
 
 }

@@ -9,13 +9,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("api-test")
+@RequestMapping("api-test/countries")
 @RequiredArgsConstructor
 public class CountryRestController {
 
     private final ICountryHandler countryHandler;
 
-    @GetMapping("/countries")
+    @GetMapping("")
     public ResponseEntity<List<CountryResponseDto>> getCountries(@RequestParam(defaultValue = "1") Integer page,
                                                              @RequestParam(defaultValue = "10") Integer size){
         return ResponseEntity.ok(countryHandler.getCountries(page, size));
