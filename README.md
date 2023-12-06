@@ -1,6 +1,9 @@
 # Sistema de Monitoreo de Usuarios - API Test
 
-Este proyecto implementa un sistema de monitoreo mediante una API REST utilizando Java 17, Spring Boot 3.2.0, y una base de datos PostgreSQL. La aplicación gestiona diferentes roles de usuarios y restringe el acceso a ciertos endpoints según el rol del usuario.
+Api desarrollada en Java, en su framework Springboot, usando como gestor de dependencias Gradle, implementando arquitectura 
+limpia/hexagonal, quise implementar esta arquitectura ya que es ideal para darle escalabilidad y mantenibilidad a las apis 
+contruidas por grandes equipos, usé Gradle ya que permite implementar microservicios de mejor manera gracias a su amplia configuracion.
+Aunque pude implementar una arquitectura menos compleja por el tamaño del api, quise demostrar un poco mi conocimiento.
 
 ### Construido con
 
@@ -412,3 +415,48 @@ Para ejecutar la aplicación, asegúrese de tener Java 17 instalado y siga estos
 4. Ejecute `./gradlew bootRun` para iniciar la aplicación.
 
 La aplicación estará disponible por defecto en `http://localhost:8090/api-test`.
+
+## Dockerfile
+
+1. crear el archivo `env.properties` en la raiz del proyecto, en se debe agregar las siguientes variables globales con 
+sus respectivos valores:
+ ```properties
+   # env.properties
+   PORT_DB_ENV=puerto-de-la-base-de-datos
+   NAME_DB_ENV=nombre-de-la-base-de-datos
+   PASSWORD_DB_ENV=contraseña-de-la-base-de-datos
+   URL_DB_ENV=url-de-la-base-de-datos
+   USERNAME_DB_ENV=nombre-de-esuario-de-la-base-de-datos
+   ```
+2. Construir la imagen con el comando `docker build -t nombre-imagen:tag-imagen .` en caso de presentar problemas, intentar 
+construir manualmente con gradle build y volver a ejecutar el comando.
+3. Crear el contenedor con el siguiente comando para cargar las variables de entorno `docker run -p 8090:8090 --env-file env.properties nombre-imagen:tag-imagen` 
+Cambiar el puerto de ser necesario.
+
+## Despliegue 
+Para desplegar en Elastic Container Service se deben realizar los siguientes pasos:
+
+1. Realizar el paso anterior, tener la imagen creada y lista para subir a ECR o Docker Hub
+2. Crear el cluster para que agrupe los recursos que utilizara el contenedor.
+2. Definir las tareas para definir como se va a ejecutar el contenedor, de donde obtendra la imagen, etc.
+3. Crear el servicio ECS para que realice las tareas especificadas
+
+Para desplegar en Elastic beanstalk se deben realizar los siguientes pasos:
+1. Tener la imagen docker publicada en ECR o Docker Hub.
+2. Crear el archivo `Dockerrun.aws.json` de la siguiente manera:
+    ```json
+      {
+        "AWSEBDockerrunVersion": "1",
+        "Image": {
+            "Name": "tu-repositorio/tu-imagen-docker",
+            "Update": "true"
+        },
+        "Ports": [
+           {
+            "ContainerPort": 80
+           }
+        ]
+      }
+   ```
+3. Configurar el entorno, podremos elegir con o sin base de datos, la tecnologica en la que se ejecuta la app, etc.
+4. Subir el el archivo  `Dockerrun.aws.json` y la app.
