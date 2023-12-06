@@ -2,10 +2,12 @@ package com.example.apiusermonitoring.configuration;
 
 import com.example.apiusermonitoring.adapters.driven.jpa.postgresql.exception.NoDataFoundException;
 import com.example.apiusermonitoring.adapters.driven.jpa.postgresql.exception.UserNotFoundException;
+import com.example.apiusermonitoring.adapters.driven.jpa.postgresql.exception.InvalidTokenException;
 import com.example.apiusermonitoring.domain.exception.InvalidDateFormatException;
 import com.example.apiusermonitoring.domain.exception.InvalidDateRangeException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -36,6 +38,12 @@ public class ControllerAdvisor {
         return new ResponseEntity<>(errorMessages, HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(UsernameNotFoundException.class)
+    public ResponseEntity<Map<String, String>> handleAuthenticationException(UsernameNotFoundException exception) {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                .body(Collections.singletonMap(RESPONSE_ERROR_MESSAGE_KEY, exception.getMessage()));
+    }
+
     @ExceptionHandler(NoDataFoundException.class)
     public ResponseEntity<Map<String, String>> handleNoDataFoundException() {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
@@ -58,6 +66,12 @@ public class ControllerAdvisor {
     public ResponseEntity<Map<String, String>> handleInvalidDateRangeException() {
         return ResponseEntity.status(HttpStatus.CONFLICT)
                 .body(Collections.singletonMap(RESPONSE_ERROR_MESSAGE_KEY, INVALID_DATE_RANGE_MESSAGE));
+    }
+
+    @ExceptionHandler(InvalidTokenException.class)
+    public ResponseEntity<Map<String, String>> handleInvalidTokenException() {
+        return ResponseEntity.status(HttpStatus.CONFLICT)
+                .body(Collections.singletonMap(RESPONSE_ERROR_MESSAGE_KEY, INVALID_TOKEN_MESSAGE));
     }
 
 }
