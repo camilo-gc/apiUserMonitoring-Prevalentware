@@ -17,17 +17,25 @@ Aunque pude implementar una arquitectura menos compleja por el tamaño del api, 
 Asegúrese de configurar las siguientes variables de entorno antes de ejecutar la aplicación:
 
 - `URL_DB_ENV`: URL de la base de datos PostgreSQL.
-- `DATABASE_PORT`: Puerto de la base de datos.
+- `PORT_DB_ENV`: Puerto de la base de datos.
 - `NAME_DB_ENV`: Nombre de la base de datos.
 - `USERNAME_DB_ENV`: Nombre de usuario de la base de datos.
 - `PASSWORD_DB_ENV`: Contraseña de la base de datos.
+
+## Roles y Accesos
+
+- **User**: Puede ver solo sus propios datos, incluidos sus países asociados y su monitoreo de usuario (UserMonitoring).
+- **Manager**: Puede ver todos los usuarios de todos los países, pero no puede acceder a UserMonitoring.
+- **Admin**: Tiene acceso a todos los datos.
 
 ## Endpoints
 
 ### Ruta Base: `/api-test`
 
 - **Obtiene la información de todos los usuarios.**
-    
+
+  **Acceso**: User, Manager, Admin.
+- 
   **Endpoint:** `/users`
 
   **HTTP Method:** GET
@@ -93,6 +101,8 @@ Asegúrese de configurar las siguientes variables de entorno antes de ejecutar l
 
 - **Obtiene un usuario por correo electrónico.**
 
+  **Acceso**: User, Manager, Admin.
+
   **Endpoint:** `/users/search`
 
   **HTTP Method:** GET
@@ -144,6 +154,8 @@ Asegúrese de configurar las siguientes variables de entorno antes de ejecutar l
   
 - **Obtiene todos los países.**:
 
+  **Acceso**: Manager, Admin.
+
   **Endpoint:** `/countries`
 
   **HTTP Method:** GET
@@ -188,6 +200,8 @@ Asegúrese de configurar las siguientes variables de entorno antes de ejecutar l
      ```  
 
 - **Obtiene UserMonitoring de un usuario en un rango de tiempo.**
+
+  **Acceso**: User.
 
   **Endpoint:** `/user-monitoring`
 
@@ -247,6 +261,8 @@ Asegúrese de configurar las siguientes variables de entorno antes de ejecutar l
      ```  
 
 - **Obtiene los tres usuarios con más registros en UserMonitoring en un rango de tiempo específico.**
+
+  **Acceso**: Admin.
 
   **Endpoint:** `/users/max-monitoring-records`
 
@@ -322,6 +338,8 @@ Asegúrese de configurar las siguientes variables de entorno antes de ejecutar l
      ```  
 
 - **Obtiene los principales usuarios por tipo de uso en un país específico en un rango de tiempo.**
+
+  **Acceso**: Admin.
 
   **Endpoint:** `/users/description-and-country`
 
@@ -460,3 +478,7 @@ Para desplegar en Elastic beanstalk se deben realizar los siguientes pasos:
    ```
 3. Configurar el entorno, podremos elegir con o sin base de datos, la tecnologica en la que se ejecuta la app, etc.
 4. Subir el el archivo  `Dockerrun.aws.json` y la app.
+
+## Adicional
+Siempre es bueno seguir una estrategia y para este caso he seguido la estrategia de versionado GitFlow, haciendo uso de SemVer,
+ si desean ver graficamente, pueden acceder al siguiente [link](https://github.com/camilo-gc/apiUserMonitoring-Prevalentware/network "GitFlow") 
