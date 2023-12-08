@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface IUserServicePort {
 
-    List<User> getAllUsers(Pageable pageable);
+    List<User> getAllUsers(String email, String roleId, Pageable pageable);
 
     User getUserByEmail(String email) ;
 

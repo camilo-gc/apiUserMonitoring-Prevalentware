@@ -2,12 +2,15 @@ package com.example.apiusermonitoring.domain.usecase;
 
 import com.example.apiusermonitoring.adapters.driven.jpa.postgresql.exception.NoDataFoundException;
 import com.example.apiusermonitoring.adapters.driven.jpa.postgresql.exception.UserNotFoundException;
+import com.example.apiusermonitoring.databuilder.RoleDataBuilder;
 import com.example.apiusermonitoring.databuilder.UserDataBuilder;
 import com.example.apiusermonitoring.databuilder.UserMonitoringDataBuilder;
 import com.example.apiusermonitoring.domain.api.IUserServicePort;
 import com.example.apiusermonitoring.domain.exception.InvalidDateRangeException;
+import com.example.apiusermonitoring.domain.model.Role;
 import com.example.apiusermonitoring.domain.model.User;
 import com.example.apiusermonitoring.domain.model.UserMonitoring;
+import com.example.apiusermonitoring.domain.spi.IRolePersistencePort;
 import com.example.apiusermonitoring.domain.spi.IUserMonitoringPersistencePort;
 import com.example.apiusermonitoring.domain.spi.IUserPersistencePort;
 import org.junit.jupiter.api.BeforeEach;
@@ -19,9 +22,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
 import java.time.LocalDate;
-import java.util.Arrays;
 import java.util.List;
 
+import static com.example.apiusermonitoring.configuration.Constants.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -30,33 +33,61 @@ class UserUseCaseTest {
 
     private IUserPersistencePort userPersistencePort;
     private IUserMonitoringPersistencePort userMonitoringPersistencePort;
+    private IRolePersistencePort rolePersistencePort;
     private IUserServicePort userServicePort;
 
     @BeforeEach
     void setUp() {
         userPersistencePort = mock(IUserPersistencePort.class);
         userMonitoringPersistencePort = mock(IUserMonitoringPersistencePort.class);
-        userServicePort = new UserUseCase(userPersistencePort, userMonitoringPersistencePort);
+        rolePersistencePort = mock(IRolePersistencePort.class);
+        userServicePort = new UserUseCase(userPersistencePort, userMonitoringPersistencePort, rolePersistencePort);
     }
 
     @Test
-    void testGetAllUsers() {
+    void testGetAllUsers_ForUserRole() {
+        User user = UserDataBuilder.build("1");
+        Role role = RoleDataBuilder.build(USER_ROLE);
+        Pageable pageable = PageRequest.of(0, 10, Sort.by(Sort.Direction.ASC, "name"));
+
+        when(rolePersistencePort.findRoleById(anyString())).thenReturn(role);
+        when(userPersistencePort.findUserByEmail(anyString())).thenReturn(user);
+
+        assertEquals(1, userServicePort.getAllUsers(user.getEmail(), role.getId(), pageable).size());
+
+        verify(rolePersistencePort, times(1)).findRoleById(anyString());
+        verify(userPersistencePort, times(1)).findUserByEmail(anyString());
+
+    }
+
+    @Test
+    void testGetAllUsers_ForNonUserRole() {
 
         List<User> userList = UserDataBuilder.buildList(5);
+        Role role = RoleDataBuilder.build(MANAGER_ROLE);
+        Pageable pageable = PageRequest.of(0, 10, Sort.by(Sort.Direction.ASC, "name"));
 
+
+        when(rolePersistencePort.findRoleById(anyString())).thenReturn(role);
         when(userPersistencePort.findAllUsers(any(Pageable.class))).thenReturn(userList);
-        assertEquals(userList, userServicePort.getAllUsers(Pageable.unpaged()));
+
+        assertEquals(userList, userServicePort.getAllUsers(userList.get(0).getEmail(), role.getId(), pageable));
+
+        verify(rolePersistencePort, times(1)).findRoleById(anyString());
         verify(userPersistencePort, times(1)).findAllUsers(any(Pageable.class));
 
     }
 
     @Test
     void testGetAllUsers_NotFoundException() {
-
+        User user = UserDataBuilder.build("1");
+        Role role = RoleDataBuilder.build(ADMIN_ROLE);
         Pageable pageable = PageRequest.of(0, 10, Sort.by(Sort.Direction.ASC, "name"));
 
+        when(rolePersistencePort.findRoleById(role.getId())).thenReturn(role);
+
         doThrow(NoDataFoundException.class).when(userPersistencePort).findAllUsers(pageable);
-        assertThrows(NoDataFoundException.class, () -> userServicePort.getAllUsers(pageable));
+        assertThrows(NoDataFoundException.class, () -> userServicePort.getAllUsers(user.getEmail(), role.getId(), pageable));
 
     }
 
