@@ -43,7 +43,7 @@ public class ControllerAdvisor {
     @ExceptionHandler(AccessDeniedException.class)
     public ResponseEntity<Map<String, String>> handleAccessDeniedException() {
         return ResponseEntity.status(HttpStatus.FORBIDDEN)
-                .body(Collections.singletonMap(RESPONSE_ERROR_MESSAGE_KEY, ACCES_DENIED_MESSAGE));
+                .body(Collections.singletonMap(RESPONSE_ERROR_MESSAGE_KEY, ACCESS_DENIED_MESSAGE));
     }
 
     @ExceptionHandler(UsernameNotFoundException.class)
