@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "\"Role\"", schema = "public")
@@ -20,15 +20,6 @@ public class RoleEntity {
     private String id;
     private String name;
     @Column(name = "\"createdAt\"")
-    private Date createdAt;
-
-    @Override
-    public String toString() {
-        return "RoleEntity{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", createdAt=" + createdAt +
-                '}';
-    }
+    private LocalDate createdAt;
 
 }

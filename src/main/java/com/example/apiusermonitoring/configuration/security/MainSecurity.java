@@ -24,14 +24,14 @@ public class MainSecurity {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http
-                .authorizeRequests(requests -> requests
-                        .requestMatchers("/api-test/users/max-monitoring-records", "/api-test/users/description-and-country").hasAuthority(ADMIN_ROLE)
-                        .requestMatchers("/api-test/countries", "/api-test/users", "/api-test/users/search").hasAnyAuthority(ADMIN_ROLE, MANAGER_ROLE)
-                        .requestMatchers("/api-test/users", "/api-test/users/search", "/api-test/user-monitoring").hasAnyAuthority(USER_ROLE, ADMIN_ROLE)
-                        .anyRequest().authenticated()
-                )
-                .formLogin().disable();
+        http.authorizeRequests(requests -> requests
+                .requestMatchers("/api-test/users/max-monitoring-records", "/api-test/users/description-and-country").hasAuthority(ADMIN_ROLE)
+                .requestMatchers("/api-test/countries").hasAnyAuthority(ADMIN_ROLE, MANAGER_ROLE)
+                .requestMatchers("/api-test/users", "/api-test/users/search").hasAnyAuthority(ADMIN_ROLE, MANAGER_ROLE, USER_ROLE)
+                .requestMatchers("/api-test/user-monitoring").hasAnyAuthority(ADMIN_ROLE, USER_ROLE)
+                .anyRequest().authenticated()
+            )
+            .formLogin().disable();
         http.addFilterBefore(jwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }

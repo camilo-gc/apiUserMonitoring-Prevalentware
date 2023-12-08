@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface IUserHandler {
 
-    List<UserResponseDto> getUsers(int page, int size);
+    List<UserResponseDto> getUsers(String token, int page, int size);
 
     UserResponseDto getUserByEmail(String email);
 

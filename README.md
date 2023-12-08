@@ -444,7 +444,7 @@ sus respectivos valores:
    NAME_DB_ENV=nombre-de-la-base-de-datos
    PASSWORD_DB_ENV=contraseña-de-la-base-de-datos
    URL_DB_ENV=url-de-la-base-de-datos
-   USERNAME_DB_ENV=nombre-de-esuario-de-la-base-de-datos
+   USERNAME_DB_ENV=nombre-de-usuario-de-la-base-de-datos
    ```
 2. Construir la imagen con el comando `docker build -t nombre-imagen:tag-imagen .` en caso de presentar problemas, intentar 
 construir manualmente con gradle build y volver a ejecutar el comando.

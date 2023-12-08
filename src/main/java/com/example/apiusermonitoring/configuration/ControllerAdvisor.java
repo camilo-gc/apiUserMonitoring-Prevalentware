@@ -1,8 +1,9 @@
 package com.example.apiusermonitoring.configuration;
 
-import com.example.apiusermonitoring.adapters.driven.jpa.postgresql.exception.NoDataFoundException;
-import com.example.apiusermonitoring.adapters.driven.jpa.postgresql.exception.UserNotFoundException;
 import com.example.apiusermonitoring.adapters.driven.jpa.postgresql.exception.InvalidTokenException;
+import com.example.apiusermonitoring.adapters.driven.jpa.postgresql.exception.NoDataFoundException;
+import com.example.apiusermonitoring.adapters.driven.jpa.postgresql.exception.RoleNotFoundException;
+import com.example.apiusermonitoring.adapters.driven.jpa.postgresql.exception.UserNotFoundException;
 import com.example.apiusermonitoring.domain.exception.InvalidDateFormatException;
 import com.example.apiusermonitoring.domain.exception.InvalidDateRangeException;
 import org.springframework.http.HttpStatus;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import java.nio.file.AccessDeniedException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -36,6 +38,12 @@ public class ControllerAdvisor {
             }
         }
         return new ResponseEntity<>(errorMessages, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(AccessDeniedException.class)
+    public ResponseEntity<Map<String, String>> handleAccessDeniedException() {
+        return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                .body(Collections.singletonMap(RESPONSE_ERROR_MESSAGE_KEY, ACCES_DENIED_MESSAGE));
     }
 
     @ExceptionHandler(UsernameNotFoundException.class)
@@ -72,6 +80,12 @@ public class ControllerAdvisor {
     public ResponseEntity<Map<String, String>> handleInvalidTokenException() {
         return ResponseEntity.status(HttpStatus.CONFLICT)
                 .body(Collections.singletonMap(RESPONSE_ERROR_MESSAGE_KEY, INVALID_TOKEN_MESSAGE));
+    }
+
+    @ExceptionHandler(RoleNotFoundException.class)
+    public ResponseEntity<Map<String, String>> handleRoleNotFoundException() {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(Collections.singletonMap(RESPONSE_ERROR_MESSAGE_KEY, ROLE_NOT_FOUND_MESSAGE));
     }
 
 }

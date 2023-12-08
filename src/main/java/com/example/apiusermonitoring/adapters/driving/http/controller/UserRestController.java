@@ -7,6 +7,7 @@ import com.example.apiusermonitoring.adapters.driving.http.dto.response.UserResp
 import com.example.apiusermonitoring.adapters.driving.http.handler.IUserHandler;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,8 +22,9 @@ public class UserRestController {
 
     @GetMapping("")
     public ResponseEntity<List<UserResponseDto>> getUsers(@RequestParam(defaultValue = "1") Integer page,
-                                                          @RequestParam(defaultValue = "10") Integer size){
-        return ResponseEntity.ok(userHandler.getUsers(page, size));
+                                                          @RequestParam(defaultValue = "10") Integer size,
+                                                          @RequestHeader HttpHeaders headers) {
+        return ResponseEntity.ok(userHandler.getUsers(headers.get("Authorization").get(0), page, size));
     }
 
     @GetMapping("/search")
@@ -33,14 +35,14 @@ public class UserRestController {
     @GetMapping("/max-monitoring-records")
     public ResponseEntity<List<UserResponseDto>> getTop3UsersOfRecords(@Valid @RequestBody TimeRangeRequestDto timeRangeRequestDto,
                                                                        @RequestParam(defaultValue = "1") Integer page,
-                                                                       @RequestParam(defaultValue = "10") Integer size)  {
+                                                                       @RequestParam(defaultValue = "10") Integer size) {
         return ResponseEntity.ok(userHandler.getTop3UsersOfRecords(timeRangeRequestDto, page, size));
     }
 
     @GetMapping("/description-and-country")
     public ResponseEntity<List<UserResponseDto>> getUsersByDescriptionAndCountryAndTimeRange(@Valid @RequestBody UserMonitoringFieldsRequestDto userMonitoringFieldsRequestDto,
-                                                                                                       @RequestParam(defaultValue = "1") Integer page,
-                                                                                                       @RequestParam(defaultValue = "10") Integer size)  {
+                                                                                             @RequestParam(defaultValue = "1") Integer page,
+                                                                                             @RequestParam(defaultValue = "10") Integer size) {
         return ResponseEntity.ok(userHandler.getUsersByDescriptionAndCountryAndTimeRange(userMonitoringFieldsRequestDto, page, size));
     }
 
