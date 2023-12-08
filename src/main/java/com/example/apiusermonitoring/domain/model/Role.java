@@ -1,14 +1,14 @@
 package com.example.apiusermonitoring.domain.model;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Role {
 
     private String id;
     private String name;
-    private Date createdAt;
+    private LocalDate createdAt;
 
-    public Role(String id, String name, Date createdAt) {
+    public Role(String id, String name, LocalDate createdAt) {
         this.id = id;
         this.name = name;
         this.createdAt = createdAt;
@@ -30,11 +30,11 @@ public class Role {
         this.name = name;
     }
 
-    public Date getCreatedAt() {
+    public LocalDate getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Date createdAt) {
+    public void setCreatedAt(LocalDate createdAt) {
         this.createdAt = createdAt;
     }
 
